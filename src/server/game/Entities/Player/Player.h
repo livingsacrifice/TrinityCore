@@ -75,6 +75,9 @@ class TradeData;
 // NpcBot mod
 class BotMgr;
 // end NpcBot mod
+// Playerbot mod
+class PlayerbotAI;
+class PlayerbotMgr;
 
 enum InventoryType : uint8;
 enum ItemClass : uint8;
@@ -1282,6 +1285,7 @@ class TC_GAME_API Player : public Unit, public GridObject<Player>
         void SetQuestSharingInfo(ObjectGuid guid, uint32 id) { m_playerSharingQuest = guid; m_sharedQuestId = id; }
         void ClearQuestSharingInfo() { m_playerSharingQuest = ObjectGuid::Empty; m_sharedQuestId = 0; }
 
+
         uint32 GetInGameTime() const { return m_ingametime; }
         void SetInGameTime(uint32 time) { m_ingametime = time; }
 
@@ -2133,6 +2137,18 @@ class TC_GAME_API Player : public Unit, public GridObject<Player>
 
         bool CanFly() const override { return m_movementInfo.HasMovementFlag(MOVEMENTFLAG_CAN_FLY); }
 
+        // Playerbot mod:
+        // A Player can either have a playerbotMgr (to manage its bots), or have playerbotAI (if it is a bot), or
+        // neither. Code that enables bots must create the playerbotMgr and set it using SetPlayerbotMgr.
+        EquipmentSetContainer& GetEquipmentSets() { return _equipmentSets; }
+        void SetPlayerbotAI(PlayerbotAI* ai) { m_playerbotAI=ai; }
+        PlayerbotAI* GetPlayerbotAI() { return m_playerbotAI; }
+        void SetPlayerbotMgr(PlayerbotMgr* mgr) { m_playerbotMgr=mgr; }
+        PlayerbotMgr* GetPlayerbotMgr() { return m_playerbotMgr; }
+        void SetBotDeathTimer() { m_deathTimer = 0; }
+        PlayerTalentMap& GetTalentMap(uint8 spec) { return *m_talents[spec]; }
+        bool MinimalLoadFromDB( QueryResult result, uint32 guid );
+
         //! Return collision height sent to client
         float GetCollisionHeight(bool mounted) const;
 
@@ -2278,10 +2294,10 @@ class TC_GAME_API Player : public Unit, public GridObject<Player>
 
         Item* m_items[PLAYER_SLOTS_COUNT];
         uint32 m_currentBuybackSlot;
-
+    public:
         std::vector<Item*> m_itemUpdateQueue;
         bool m_itemUpdateQueueBlocked;
-
+    protected:
         uint32 m_ExtraFlags;
 
         QuestStatusMap m_QuestStatus;
@@ -2491,6 +2507,9 @@ class TC_GAME_API Player : public Unit, public GridObject<Player>
         uint32 manaBeforeDuel;
 
         WorldLocation _corpseLocation;
+        // playerbot mod
+        PlayerbotAI* m_playerbotAI;
+        PlayerbotMgr* m_playerbotMgr;
 };
 
 TC_GAME_API void AddItemsSetItem(Player* player, Item* item);

@@ -101,6 +101,11 @@ TC_GAME_API int32 World::m_visibility_notify_periodOnContinents = DEFAULT_VISIBI
 TC_GAME_API int32 World::m_visibility_notify_periodInInstances  = DEFAULT_VISIBILITY_NOTIFY_PERIOD;
 TC_GAME_API int32 World::m_visibility_notify_periodInBGArenas   = DEFAULT_VISIBILITY_NOTIFY_PERIOD;
 
+// playerbot mod
+#include "../../plugins/ahbot/AhBot.h"
+#include "../../plugins/playerbot/PlayerbotAIConfig.h"
+#include "../../plugins/playerbot/RandomPlayerbotMgr.h"
+
 /// World constructor
 World::World()
 {
@@ -2126,6 +2131,11 @@ void World::SetInitialWorldSettings()
 
     if (uint32 realmId = sConfigMgr->GetIntDefault("RealmID", 0)) // 0 reserved for auth
         sLog->SetRealmId(realmId);
+
+    TC_LOG_INFO("server.loading", "Initializing AuctionHouseBot...");
+    auctionbot.Init();
+
+    sPlayerbotAIConfig.Initialize();
 }
 
 void World::DetectDBCLang()
@@ -2269,7 +2279,13 @@ void World::Update(uint32 diff)
 
         ///- Handle expired auctions
         sAuctionMgr->Update();
+
+        // ahbot mod (DMANBOB DISABLE ike3 AHbot) 
+		//auctionbot.Update();        
     }
+    // playerbot mod
+    sRandomPlayerbotMgr.UpdateAI(diff);
+    sRandomPlayerbotMgr.UpdateSessions(diff);
 
     if (m_timers[WUPDATE_AUCTIONS_PENDING].Passed())
     {
@@ -2864,6 +2880,9 @@ void World::ShutdownServ(uint32 time, uint32 options, uint8 exitcode, const std:
         m_ShutdownTimer = time;
         ShutdownMsg(true, nullptr, reason);
     }
+    // playerbot mod
+    sRandomPlayerbotMgr.LogoutAllBots();
+    // end of playerbot mod
 
     sScriptMgr->OnShutdownInitiate(ShutdownExitCode(exitcode), ShutdownMask(options));
 }

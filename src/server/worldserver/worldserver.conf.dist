@@ -4089,3 +4089,518 @@ NpcBot.PvP = 1
 
 #
 ###################################################################################################
+
+###################################################################################################
+#    Transmogrification config
+###################################################################################################
+#
+#    SETTINGS
+#
+#    Logger.custom.transmog
+#        Description: Transmogrification logging setting, see logger settings
+#        Default:    3, Console Server
+#
+#    Transmogrification.EnableTransmogInfo
+#        Description: Enables / Disables the info button for transmogrification
+#        Default:    1
+#
+#    Transmogrification.TransmogNpcText
+#        Description: The npc_text entry of the info menu for transmogrification
+#        Default:    50000
+#
+#    Transmogrification.Allowed
+#        Description: A list of item entries that are allowed for transmogrification (skips quality and CanUseItem check)
+#                     Example: "25 35674 5623"
+#        Default:    ""
+#
+#    Transmogrification.NotAllowed
+#        Description: A list of item entries that are NOT allowed for transmogrification
+#                     Example: "25 35674 5623"
+#        Default:    ""
+
+Logger.custom.transmog = 3, Console Server
+
+Transmogrification.EnableTransmogInfo = 1
+Transmogrification.TransmogNpcText = 50000
+
+Transmogrification.Allowed = ""
+Transmogrification.NotAllowed = ""
+
+#
+#    COPPER COST
+#
+#    Transmogrification.ScaledCostModifier
+#        Description: A multiplier for the default gold cost (change to 0 for no default cost)
+#        Default:    1.0
+#
+#    Transmogrification.CopperCost
+#        Description: Cost added on top of other costs (can be negative)
+#        Default:    0
+#
+#    For custom gold cost set ScaledCostModifier to 0.0 and CopperCost to what ever cost you want
+
+Transmogrification.ScaledCostModifier = 1.0
+Transmogrification.CopperCost = 0
+
+#
+#    TOKEN COST
+#
+#    Transmogrification.RequireToken
+#        Description: Adds/disables token cost
+#        Default:    0
+#
+#    Transmogrification.TokenEntry
+#        Description: Entry of the token item
+#        Default:    49426
+#
+#    Transmogrification.TokenAmount
+#        Description: Amount of tokens required
+#        Default:    1
+
+Transmogrification.RequireToken = 0
+Transmogrification.TokenEntry = 49426
+Transmogrification.TokenAmount = 1
+
+#
+#    REQUIREMENTS
+#
+#    Transmogrification.AllowPoor
+#        Description: Allow poor quality items to be used as source and target items
+#        Default:    0
+#
+#    Transmogrification.AllowCommon
+#        Description: Allow common quality items to be used as source and target items
+#        Default:    0
+#
+#    Transmogrification.AllowUncommon
+#        Description: Allow uncommon quality items to be used as source and target items
+#        Default:    1
+#
+#    Transmogrification.AllowRare
+#        Description: Allow rare quality items to be used as source and target items
+#        Default:    1
+#
+#    Transmogrification.AllowEpic
+#        Description: Allow epic quality items to be used as source and target items
+#        Default:    1
+#
+#    Transmogrification.AllowLegendary
+#        Description: Allow legendary quality items to be used as source and target items
+#        Default:    0
+#
+#    Transmogrification.AllowArtifact
+#        Description: Allow artifact quality items to be used as source and target items
+#        Default:    0
+#
+#    Transmogrification.AllowHeirloom
+#        Description: Allow heirloom quality items to be used as source and target items
+#        Default:    1
+#
+#    Transmogrification.AllowMixedArmorTypes
+#        Description: Allow cloth items to be transmogrified with plate for example
+#        Default:    0
+#
+#    Transmogrification.AllowMixedWeaponTypes
+#        Description: Allow axe to be transmogrified with dagger for example
+#        Default:    0
+#
+#    Transmogrification.AllowFishingPoles
+#        Description: Allow fishing poles to be transmogrified
+#        Default:    0
+#
+#    Transmogrification.IgnoreReqRace
+#        Description: Ignore required race for source items
+#        Default:    0
+#
+#    Transmogrification.IgnoreReqClass
+#        Description: Ignore required class for source items
+#        Default:    0
+#
+#    Transmogrification.IgnoreReqSkill
+#        Description: Ignore required skill for source items
+#        Default:    0
+#
+#    Transmogrification.IgnoreReqSpell
+#        Description: Ignore required spell for source items
+#        Default:    0
+#
+#    Transmogrification.IgnoreReqLevel
+#        Description: Ignore required level for source items
+#        Default:    0
+#
+#    Transmogrification.IgnoreReqEvent
+#        Description: Ignore required event for source items
+#        Default:    0
+#
+#    Transmogrification.IgnoreReqStats
+#        Description: Ignore stat count > 0 requirement for source items
+#        Default:    0
+
+Transmogrification.AllowPoor = 0
+Transmogrification.AllowCommon = 0
+Transmogrification.AllowUncommon = 1
+Transmogrification.AllowRare = 1
+Transmogrification.AllowEpic = 1
+Transmogrification.AllowLegendary = 0
+Transmogrification.AllowArtifact = 0
+Transmogrification.AllowHeirloom = 1
+
+Transmogrification.AllowMixedArmorTypes = 0
+Transmogrification.AllowMixedWeaponTypes = 0
+Transmogrification.AllowFishingPoles = 0
+
+Transmogrification.IgnoreReqRace = 0
+Transmogrification.IgnoreReqClass = 0
+Transmogrification.IgnoreReqSkill = 0
+Transmogrification.IgnoreReqSpell = 0
+Transmogrification.IgnoreReqLevel = 0
+Transmogrification.IgnoreReqEvent = 0
+Transmogrification.IgnoreReqStats = 0
+
+#
+#    SET FEATURE
+#
+#    Transmogrification.EnableSets
+#        Description: Enables / Disables the set feature. If you want permanent disable, check Transmogrification.h
+#        Default:    1
+#
+#    Transmogrification.MaxSets
+#        Description: Maximum amount of sets a player can save (hardcap at 25)
+#        Default:    10
+#
+#    Transmogrification.EnableSetInfo
+#        Description: Enables / Disables the info button for set fature
+#        Default:    1
+#
+#    Transmogrification.SetNpcText
+#        Description: The npc_text entry of the info menu for the set feature
+#        Default:    50001
+#
+#    Transmogrification.SetCostModifier
+#        Description: A multiplier for the default gold cost (all costs summed together) (change to 0 for no default cost)
+#        Default:    3.0
+#
+#    Transmogrification.SetCopperCost
+#        Description: Cost added on top of other costs (can be negative)
+#        Default:    0
+
+Transmogrification.EnableSets = 1
+Transmogrification.MaxSets = 10
+
+Transmogrification.EnableSetInfo = 1
+Transmogrification.SetNpcText = 50001
+
+Transmogrification.SetCostModifier = 3.0
+Transmogrification.SetCopperCost = 0
+
+#
+###################################################################################################
+
+###################################################################################################
+# GuildHouse
+#
+# Settings for the GuildHouse Keeper.
+#
+#    Guildhouse.TokenOrGold
+#        Description: Use tokens or money to buy guild houses.
+#        Default:     0 - Use Money
+#                     1 - Use Token
+#
+
+Guildhouse.TokenOrGold = 0
+
+#    GuildHouse.BuyCost
+#        Description: Amount of gold or quantity of tokens to buy guildhouse.
+#        Default:     1000 - 1000 gold
+#
+
+Guildhouse.BuyCost = 1000
+
+#    GuildHouse.BuyCost
+#        Description: Amount of gold or quantity of tokens gained when selling guildhouse.
+#        Default:     5000000 - 500 gold
+#
+
+Guildhouse.SellCost = 500
+
+#
+###################################################################################################
+
+###################################################################################################
+# BeastMaster Configuration
+#
+# BeastMaster Hunter Only
+#                 = 0 (Anyone can use)
+#         default = 1 (Hunter only)
+
+BeastMaster.OnlyHunter = 1
+
+#
+# BeastMaster Enable Normal Pets
+#                 = 0  (Normal pets disabled)
+#         default = 1  (Normal Pets enabled)
+
+BeastMaster.EnableNormalPet = 1
+
+#
+# BeastMaster Enable Exotic Pets
+#                 = 0  (Anyone Can get Exotic pets)
+#         default = 1  (Can only get Exotic Pets if you know how)
+#
+
+BeastMaster.EnableExoticPet = 1
+
+#
+###################################################################################################
+
+###################################################################################################
+#
+#     TimeReq.Chat
+#        Description: Time requirement for characters to be able to Chat.
+#        Default:     1
+
+TimeReq.Chat = 1
+
+#
+#     LevelReq.Chat
+#        Description: Level requirement for characters to be able to Chat.
+#        Default:     1
+
+LevelReq.Chat = 1
+
+#
+###################################################################################################
+
+###################################################################################################
+#
+#     PvPRank.Rate.ExtraHonor
+#        Description: Honor point rate for kills.
+#        Default:     1
+
+PvPRank.Rate.ExtraHonor = 1
+
+#
+#     PvPRank.Rate.ExtraHonor
+#        Description: Required honor points for PvP ranks
+#        Default:     10,50,100,200,450,750,1300,2000,3500,6000,9500,15000,21000,30000
+
+PvPRank.HKPerRank = 10,50,100,200,450,750,1300,2000,3500,6000,9500,15000,21000,30000
+
+#
+###################################################################################################
+
+###################################################################################################
+#
+#     Killstreak.Enable
+#        Description: System announce every 5, 10, 15...etc killstreak in global chat.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Killstreak.Enable = 1
+
+#
+#     Killstreak.Battleground.Only
+#        Description: Killstreak system only in battlegrounds.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Killstreak.Battleground.Only = 0
+
+#
+#     Loose.Token.On.PvP.Death
+#        Description: Loosing PvP token if you killed by someone else.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Loose.Token.On.PvP.Death = 0
+
+#
+#     Add.Token.On.PvP.Kill
+#        Description: You receive PvP token when you killing other players or bots
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Add.Token.On.PvP.Kill = 1
+
+#
+###################################################################################################
+
+###################################################################################################
+#
+# RANDOM ENCHANTS OPTIONS
+#
+#     RandomEnchants.AnnounceOnLogin
+#        Announce a message on login for this module
+#        Default:     1
+
+RandomEnchants.AnnounceOnLogin = 1
+
+#
+#     RandomEnchants.OnLoginMessage
+#        Message to display on login(Only applies if AnnounceOnLogin is enabled)
+#        Default:    "This server is running a RandomEnchants Module."
+
+RandomEnchants.OnLoginMessage="This server is based on Single Player Project - TrinityCore repack."
+
+#
+#     RandomEnchants.OnLoot
+#        Chance at random enchant on looting an item
+#        Default:     1
+
+RandomEnchants.OnLoot = 1
+
+#
+#     RandomEnchants.OnCreate
+#        Chance at random enchant on creating an item via profession
+#        Default:     1
+
+RandomEnchants.OnCreate = 1
+
+#
+#     RandomEnchants.OnQuestReward (Not working yet)
+#        Chance at random enchant on obtaining item from quest reward
+#        Default:     1
+
+RandomEnchants.OnQuestReward = 1
+
+#
+###################################################################################################
+
+###################################################################################################
+#
+#     Solocraft.Enable
+#        Description: Solocraft is a script to increase players and bots stats in raids, 
+#		 based on group size. It feels a little Hacky, but raids is unfair hard with playerbots.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Solocraft.Enable = 0
+
+#
+#     Boss.Announcer.Enable
+#        Description: System announce who killed a world boss in global.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Boss.Announcer.Enable = 1
+
+#
+#     Login.Announcer.Enable
+#        Description: Announce every player and bots login
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Login.Announcer.Enable = 0
+
+#
+#     Auto.Spell.Learn
+#        Description: Learning spells automatically on levelup.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Auto.Spell.Learn = 0
+
+#
+#     Random.Visual.Enchant
+#        Description: You have 25% chance to loot weapons with a random visual enchant.
+#					  Only a visual tuning, not a real enchant
+#
+#        Default:     Random.Visual.Enchant = 0 (disabled)
+#                                             1 (enabled)
+#
+#					  Visual.drop.chance = 0.10 (0.10 = 10% chance, 1.0 = 100%)
+
+Random.Visual.Enchant = 0
+Visual.drop.chance = 0.10
+
+#
+#     Reset.on.login
+#        Description: Restore players health, mana and cooldowns when log into the game.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Reset.on.login = 0
+
+#
+#     Login.BoA
+#        Description: New players get some starting equipment.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Login.BoA = 0
+
+#
+#     PhasedDueling.Enable
+#        Description: On the start of a duel, the system create a separated phase 
+#					  for the duel partners and hide the other players.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+PhasedDueling.Enable = 0
+
+#
+#     FireWorksOnLevelUp
+#        Description: Players, who reach lvl80 shooting a firework to the sky.
+#					  
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+FireWorksOnLevelUp = 1
+
+#
+#    CrossfactionBG.enable = 1 - Mixed battleground enabled.
+#    CrossfactionBG.enable = 0 - Mixed battleground disabled.
+
+CrossfactionBG.enable = 1
+
+#
+#     StartGuild
+#        Description: New players automatically added for the configurated guild IDs.
+#		 Example: 	  StartGuild.Alliance = 45
+#					  StartGuild.Horde = 46
+#        Default:     0 (disabled)
+
+StartGuild.Alliance = 0
+StartGuild.Horde = 0
+
+#
+#     XP for PvP kills
+#         Set the XP and money rate for PvP kills.
+#
+#     Default:  Xp.For.Pvp.Low.Rate = 1
+#               Xp.For.Pvp.High.Rate = 1
+
+Xp.For.Pvp.Low.Rate = 1
+Xp.For.Pvp.High.Rate = 1
+
+#
+#     Time Is Money Friend
+#         Gives money for players who is online after every X minutes.
+#
+#     Default:  TimeIsMoneyFriend.Interval = 3600000 (1 hour) [0 - disabled]
+#               TimeIsMoneyFriend.Money    = 1000 (10 silver)
+
+TimeIsMoneyFriend.Interval = 3600000
+TimeIsMoneyFriend.Money    = 1000
+
+#
+#    Dungeon Checkpoints
+#        Description: Enable checkpoints in dungeons/instances. 
+#        The server set a respawn point after every world boss you defeated.
+#
+#    Dungeon.Checkpoints.Enable
+#        Default:     1 (enabled)
+#                     0 (disabled)
+
+Dungeon.Checkpoints.Enable = 1
+
+#
+#     Congrats.Level
+#        Description: Server gives money for players on every 10 level.
+#        Default:     0 (disabled)
+#                     1 (enabled)
+
+Congrats.Level = 0
+
+#
+###################################################################################################

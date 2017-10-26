@@ -740,6 +740,47 @@ void RemoveItemFromUpdateQueueOf(Item* item, Player* player)
     player->m_itemUpdateQueue[item->uQueuePos] = nullptr;
     item->uQueuePos = -1;
 }
+void Item::AddToUpdateQueueOf(Item* item, Player* player)
+{
+    if (item->IsInUpdateQueue())
+        return;
+
+    ASSERT(player != nullptr);
+
+    if (player->GetGUID() != item->GetOwnerGUID())
+    {
+        TC_LOG_DEBUG("entities.player.items", "AddItemToUpdateQueueOf - Owner's guid (%s) and player's guid (%s) don't match!",
+            item->GetOwnerGUID().ToString().c_str(), player->GetGUID().ToString().c_str());
+        return;
+    }
+
+    if (player->m_itemUpdateQueueBlocked)
+        return;
+
+    player->m_itemUpdateQueue.push_back(item);
+    item->uQueuePos = player->m_itemUpdateQueue.size() - 1;
+}
+
+void Item::RemoveFromUpdateQueueOf(Item* item, Player* player)
+{
+    if (!item->IsInUpdateQueue())
+        return;
+
+    ASSERT(player != nullptr);
+
+    if (player->GetGUID() != item->GetOwnerGUID())
+    {
+        TC_LOG_DEBUG("entities.player.items", "RemoveItemFromUpdateQueueOf - Owner's guid (%s) and player's guid (%s) don't match!",
+            item->GetOwnerGUID().ToString().c_str(), player->GetGUID().ToString().c_str());
+        return;
+    }
+
+    if (player->m_itemUpdateQueueBlocked)
+        return;
+
+    player->m_itemUpdateQueue[item->uQueuePos] = nullptr;
+    item->uQueuePos = -1;
+}
 
 uint8 Item::GetBagSlot() const
 {

@@ -21,8 +21,8 @@
 
 #include <cmath>
 
-#include "TypeContainer.h"
-#include "TypeContainerVisitor.h"
+#include "../Dynamic/TypeContainer.h"
+#include "../Dynamic/TypeContainerVisitor.h"
 
 #include "GridDefines.h"
 

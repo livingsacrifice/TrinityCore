@@ -7045,6 +7045,11 @@ bool Spell::IsChannelActive() const
     return m_caster->GetUInt32Value(UNIT_CHANNEL_SPELL) != 0;
 }
 
+bool Spell::IsNextMeleeSwingSpell() const
+{
+    return m_spellInfo->HasAttribute(SPELL_ATTR0_ON_NEXT_SWING);
+}
+
 bool Spell::IsAutoActionResetSpell() const
 {
     /// @todo changed SPELL_INTERRUPT_FLAG_AUTOATTACK -> SPELL_INTERRUPT_FLAG_INTERRUPT to fix compile - is this check correct at all?

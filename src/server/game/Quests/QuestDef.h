@@ -316,6 +316,11 @@ class TC_GAME_API Quest
         std::vector<uint32> DependentPreviousQuests;
         WorldPacket QueryData[TOTAL_LOCALES];
 
+        typedef std::vector<int32> PrevQuests;
+        PrevQuests prevQuests;
+        typedef std::vector<uint32> PrevChainQuests;
+        PrevChainQuests prevChainQuests;
+
         // cached data
     private:
         uint32 _reqItemsCount = 0;

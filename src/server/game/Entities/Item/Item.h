@@ -61,8 +61,8 @@ bool ItemCanGoIntoBag(ItemTemplate const* proto, ItemTemplate const* pBagProto);
 
 class TC_GAME_API Item : public Object
 {
-    friend void AddItemToUpdateQueueOf(Item* item, Player* player);
-    friend void RemoveItemFromUpdateQueueOf(Item* item, Player* player);
+    //friend void AddItemToUpdateQueueOf(Item* item, Player* player);
+    //friend void RemoveItemFromUpdateQueueOf(Item* item, Player* player);
 
     public:
         static Item* CreateItem(uint32 itemEntry, uint32 count, Player const* player = nullptr);
@@ -164,6 +164,10 @@ class TC_GAME_API Item : public Object
         // Update States
         ItemUpdateState GetState() const { return uState; }
         void SetState(ItemUpdateState state, Player* forplayer = nullptr);
+        void AddToUpdateQueueOf(Item* item, Player* player);
+        void RemoveFromUpdateQueueOf(Item* item, Player* player);
+        friend void AddItemToUpdateQueueOf(Item* item, Player* player);
+        friend void RemoveItemFromUpdateQueueOf(Item* item, Player* player);
         bool IsInUpdateQueue() const { return uQueuePos != -1; }
         uint16 GetQueuePos() const { return uQueuePos; }
         void FSetState(ItemUpdateState state)               // forced
