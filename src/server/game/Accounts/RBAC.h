@@ -773,7 +773,6 @@ enum RBACPermissions
     RBAC_PERM_COMMAND_NPC_SHOWLOOT                           = 865,
     RBAC_PERM_COMMAND_LIST_SPAWNPOINTS                       = 866,
     RBAC_PERM_COMMAND_RELOAD_QUEST_GREETING_LOCALE           = 867,
-
     // custom permissions 1000+ 
 	RBAC_SEC_PLAYER                                          = 1011,
     //npcbot
@@ -797,6 +796,16 @@ enum RBACPermissions
 	RBAC_PERM_COMMAND_NPCBOT_CHANGE						     = 1817,
 	RBAC_PERM_COMMAND_NPCBOT_SAVEMODEL						 = 1818,
     //end npcbot
+    RBAC_PERM_COMMAND_MODIFY_POWER                           = 868, // reserved
+    RBAC_PERM_COMMAND_DEBUG_SEND_PLAYER_CHOICE               = 869, // reserved
+    RBAC_PERM_COMMAND_DEBUG_THREATINFO                       = 870,
+    RBAC_PERM_COMMAND_DEBUG_INSTANCESPAWN                    = 871,
+    RBAC_PERM_COMMAND_SERVER_DEBUG                           = 872,
+    RBAC_PERM_COMMAND_RELOAD_CREATURE_MOVEMENT_OVERRIDE      = 873,
+    //
+    // IF YOU ADD NEW PERMISSIONS, ADD THEM IN MASTER BRANCH AS WELL!
+    //
+    // custom permissions 1000+
     RBAC_PERM_MAX
 };
 
