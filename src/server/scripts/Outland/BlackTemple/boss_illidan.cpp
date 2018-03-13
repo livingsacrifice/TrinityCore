@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2017 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -407,6 +407,12 @@ Position const IllidanDBTargetPoints[4] =
     { 660.3492f, 345.5749f, 353.2961f }
 };
 
+Position const BladesPositions[2] =
+{
+    { 676.226013f, 325.230988f },
+    { 678.059998f, 285.220001f }
+};
+
 uint32 const SummonCageTrapSpells[8] =
 {
     SPELL_SUMMON_CAGE_TRAP_1,
@@ -438,15 +444,14 @@ private:
 class ChargeTargetSelector : public std::unary_function<Unit*, bool>
 {
 public:
-    ChargeTargetSelector(Unit const* unit) : _me(unit) { }
+    ChargeTargetSelector() { }
 
     bool operator()(Unit* unit) const
     {
-        return unit->GetTypeId() == TYPEID_PLAYER && _me->GetDistance2d(unit) > 25.0f;
+        return unit->GetTypeId() == TYPEID_PLAYER
+            && unit->GetDistance2d(BladesPositions[0].GetPositionX(), BladesPositions[0].GetPositionY()) > 25.0f
+            && unit->GetDistance2d(BladesPositions[1].GetPositionX(), BladesPositions[1].GetPositionY()) > 25.0f;
     }
-
-private:
-    Unit const* _me;
 };
 
 struct boss_illidan_stormrage : public BossAI
@@ -473,9 +478,9 @@ struct boss_illidan_stormrage : public BossAI
                 akama->AI()->DoAction(ACTION_ACTIVE_AKAMA_INTRO);
     }
 
-    void EnterCombat(Unit* /*who*/) override
+    void JustEngagedWith(Unit* /*who*/) override
     {
-        _EnterCombat();
+        _JustEngagedWith();
         me->SetCanDualWield(true);
         if (GameObject* musicController = instance->GetGameObject(DATA_ILLIDAN_MUSIC_CONTROLLER))
             musicController->PlayDirectMusic(EVENT_BT_SUMMIT_WALK_3_SOUND_ID);
@@ -680,7 +685,7 @@ struct boss_illidan_stormrage : public BossAI
         Map::PlayerList const& players = me->GetMap()->GetPlayers();
         for (Map::PlayerList::const_iterator i = players.begin(); i != players.end(); ++i)
             if (Player* player = i->GetSource())
-                if (player->IsAlive() && !player->IsGameMaster() && CheckBoundary(player))
+                if (player->IsAlive() && !player->IsGameMaster() && IsInBoundary(player))
                     return;
 
         EnterEvadeMode(EVADE_REASON_NO_HOSTILES);
@@ -698,8 +703,7 @@ struct boss_illidan_stormrage : public BossAI
 
     void DamageTaken(Unit* who, uint32 &damage) override
     {
-
-        if (damage >= me->GetHealth() && who->GetGUID() != me->GetGUID())
+        if (damage >= me->GetHealth() && (!who || who->GetGUID() != me->GetGUID()))
         {
             damage = me->GetHealth() - 1;
             if (!_dead)
@@ -1375,7 +1379,7 @@ struct npc_parasitic_shadowfiend : public ScriptedAI
         _scheduler.Schedule(Seconds(2), [this](TaskContext /*context*/)
         {
             me->SetReactState(REACT_AGGRESSIVE);
-            me->SetInCombatWithZone();
+            DoZoneInCombat();
         });
     }
 
@@ -1390,7 +1394,7 @@ struct npc_parasitic_shadowfiend : public ScriptedAI
             _scheduler.Schedule(Seconds(2), [this](TaskContext /*context*/)
             {
                 me->SetReactState(REACT_AGGRESSIVE);
-                me->SetInCombatWithZone();
+                DoZoneInCombat();
             });
     }
 
@@ -1493,11 +1497,11 @@ struct npc_flame_of_azzinoth : public ScriptedAI
             {
                 case EVENT_ENGAGE:
                     me->SetReactState(REACT_AGGRESSIVE);
-                    me->SetInCombatWithZone();
+                    DoZoneInCombat();
                     _events.ScheduleEvent(EVENT_FLAME_CHARGE, Seconds(5));
                     break;
                 case EVENT_FLAME_CHARGE:
-                    if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 0, ChargeTargetSelector(me)))
+                    if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 0, ChargeTargetSelector()))
                     {
                         DoCast(target, SPELL_CHARGE);
                         _events.Repeat(Seconds(5));
@@ -1586,7 +1590,7 @@ struct npc_shadow_demon : public PassiveAI
         });
     }
 
-    void SetGUID(ObjectGuid guid, int32 /*id*/) override
+    void SetGUID(ObjectGuid const& guid, int32 /*id*/) override
     {
         _targetGUID = guid;
         if (Unit* target = ObjectAccessor::GetUnit(*me, _targetGUID))
@@ -1621,7 +1625,7 @@ struct npc_maiev : public ScriptedAI
         _canDown = true;
     }
 
-    void EnterCombat(Unit* /*who*/) override
+    void JustEngagedWith(Unit* /*who*/) override
     {
         _events.SetPhase(PHASE_1);
         _events.ScheduleEvent(EVENT_CAGE_TRAP, Seconds(30));
