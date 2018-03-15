@@ -2,7 +2,7 @@
 #include "jemalloc/internal/jemalloc_preamble.h"
 
 #include "jemalloc/internal/pages.h"
-
+#include "jemalloc_internal_defs.h"
 #include "jemalloc/internal/jemalloc_internal_includes.h"
 
 #include "jemalloc/internal/assert.h"
@@ -257,7 +257,7 @@ pages_purge_lazy(void *addr, size_t size) {
 	VirtualAlloc(addr, size, MEM_RESET, PAGE_READWRITE);
 	return false;
 #elif defined(JEMALLOC_PURGE_MADVISE_FREE)
-	return (madvise(addr, size, MADV_FREE) != 0);
+	return (madvise(addr, size, MADV_DONTNEED) != 0);
 #elif defined(JEMALLOC_PURGE_MADVISE_DONTNEED) && \
     !defined(JEMALLOC_PURGE_MADVISE_DONTNEED_ZEROS)
 	return (madvise(addr, size, MADV_DONTNEED) != 0);
