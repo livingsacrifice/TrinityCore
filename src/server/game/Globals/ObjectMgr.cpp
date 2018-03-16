@@ -53,6 +53,7 @@
 #include "Util.h"
 #include "Vehicle.h"
 #include "World.h"
+#include "Containers.h"
 
 ScriptMapMap sSpellScripts;
 ScriptMapMap sEventScripts;
@@ -414,8 +415,8 @@ void ObjectMgr::LoadCreatureTemplates()
                                              "spell2, spell3, spell4, spell5, spell6, spell7, spell8, PetSpellDataId, VehicleId, mingold, maxgold, AIName, MovementType, "
     //                                        62          63        64          65          66           67              68            69             70
                                              "ctm.Ground, ctm.Swim, ctm.Flight, ctm.Rooted, HoverHeight, HealthModifier, ManaModifier, ArmorModifier, DamageModifier, "
-    //                                        71                  72            73          74           75                    76                        77           78
-                                             "ExperienceModifier, RacialLeader, movementId, RegenHealth, mechanic_immune_mask, spell_school_immune_mask, flags_extra, ScriptName "
+    //                                        71                  72            73          74           75                    76                        77           78          79
+                                             "ExperienceModifier, RacialLeader, movementId, RegenHealth, mechanic_immune_mask, spell_school_immune_mask, flags_extra, ScriptName, InhabitType "
                                              "FROM creature_template ct LEFT JOIN creature_template_movement ctm ON ct.entry = ctm.CreatureId");
 
     if (!result)
@@ -513,7 +514,7 @@ void ObjectMgr::LoadCreatureTemplate(Field* fields)
 
     if (!fields[65].IsNull())
         creatureTemplate.Movement.Rooted = fields[65].GetBool();
-
+    creatureTemplate.InhabitType    = fields[79].GetUInt8();
     creatureTemplate.HoverHeight    = fields[66].GetFloat();
     creatureTemplate.ModHealth      = fields[67].GetFloat();
     creatureTemplate.ModMana        = fields[68].GetFloat();
